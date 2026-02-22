@@ -1,6 +1,6 @@
-# Neon Hotline (One-Level Pixel Shooter)
+# Neon Hotline (Multi-Level Pixel Shooter)
 
-A compact browser game inspired by Hotline-style top-down action, with synthwave/pixel-art visuals and one handcrafted level.
+A compact browser game inspired by Hotline-style top-down action, with synthwave/pixel-art visuals, multiple levels, weapon pickups, and enemy patrol AI.
 
 ## Requirements
 
@@ -29,12 +29,16 @@ http://localhost:4173
 - **Move:** `W`, `A`, `S`, `D`
 - **Aim:** Mouse
 - **Shoot:** Left mouse button
-- **Restart:** `R`
+- **Pick up weapon:** `E`
+- **Throw current weapon:** `Q`
+- **Next level (after clear):** `N`
+- **Restart current level:** `R`
 
 ### Objective
 
-- Eliminate all enemies on the floor.
-- Move to the glowing cyan exit tile to clear the level.
+- Eliminate all enemies on each floor.
+- Move to the glowing cyan exit tile, then press `N` to go to the next level.
+- Use pickups (SMG/shotgun), and throw held weapons when needed.
 
 ## Run Tests
 
