@@ -1,0 +1,69 @@
+:root {
+  --bg: #10041c;
+  --panel-dark: #1a0930;
+  --panel-mid: #2a1148;
+  --cyan: #32f7ff;
+  --pink: #ff2ea6;
+  --violet: #9d4edd;
+  --text: #f4eaff;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(transparent 50%, rgba(255,255,255,0.03) 50%),
+    radial-gradient(circle at 50% 20%, #2c1157 0%, var(--bg) 65%);
+  background-size: 100% 4px, cover;
+  color: var(--text);
+  font-family: "Courier New", monospace;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.hud {
+  max-width: 960px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      var(--panel-dark) 0 4px,
+      var(--panel-mid) 4px 8px
+    );
+  border: 4px solid #1b0f2f;
+  outline: 2px solid var(--cyan);
+  box-shadow:
+    0 0 0 3px #30144f,
+    0 0 24px rgba(50, 247, 255, 0.3);
+}
+
+.hud h1 {
+  margin: 0;
+  color: var(--pink);
+  text-shadow: 2px 2px 0 #3d1244;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+}
+
+.hud p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 0 #160826;
+}
+
+#game {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  width: min(96vw, 960px);
+  height: auto;
+  border: 4px solid #210f35;
+  outline: 2px solid var(--pink);
+  box-shadow:
+    0 0 0 3px #3d1244,
+    0 0 24px rgba(255, 46, 166, 0.35);
+  background: #17062a;
+}
