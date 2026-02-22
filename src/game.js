@@ -14,15 +14,34 @@ ctx.imageSmoothingEnabled = false;
 const statusEl = document.getElementById("status");
 
 let state = createInitialState();
-const input = { moveX: 0, moveY: 0, shoot: false, aimX: 0, aimY: 0 };
+const input = { moveX: 0, moveY: 0, shoot: false, aimX: canvas.width * 0.5, aimY: canvas.height * 0.5 };
+canvas.tabIndex = 0;
 
 const keyState = new Set();
-document.addEventListener("keydown", (e) => {
-  if (e.key.toLowerCase() === "r") state = createInitialState();
-  keyState.add(e.key.toLowerCase());
+const MOVEMENT_KEYS = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight"]);
+
+function setKey(code, pressed) {
+  if (pressed) keyState.add(code);
+  else keyState.delete(code);
+}
+
+window.addEventListener("keydown", (e) => {
+  if (e.code === "KeyR") state = createInitialState();
+  if (MOVEMENT_KEYS.has(e.code)) e.preventDefault();
+  setKey(e.code, true);
 });
-document.addEventListener("keyup", (e) => keyState.delete(e.key.toLowerCase()));
-canvas.addEventListener("mousedown", () => (input.shoot = true));
+
+window.addEventListener("keyup", (e) => {
+  if (MOVEMENT_KEYS.has(e.code)) e.preventDefault();
+  setKey(e.code, false);
+});
+
+window.addEventListener("blur", () => keyState.clear());
+
+canvas.addEventListener("mousedown", () => {
+  input.shoot = true;
+  canvas.focus();
+});
 window.addEventListener("mouseup", () => (input.shoot = false));
 canvas.addEventListener("mousemove", (e) => {
   const rect = canvas.getBoundingClientRect();
@@ -31,8 +50,12 @@ canvas.addEventListener("mousemove", (e) => {
 });
 
 function updateInputAxes() {
-  input.moveX = (keyState.has("d") ? 1 : 0) - (keyState.has("a") ? 1 : 0);
-  input.moveY = (keyState.has("s") ? 1 : 0) - (keyState.has("w") ? 1 : 0);
+  const right = keyState.has("KeyD") || keyState.has("ArrowRight");
+  const left = keyState.has("KeyA") || keyState.has("ArrowLeft");
+  const down = keyState.has("KeyS") || keyState.has("ArrowDown");
+  const up = keyState.has("KeyW") || keyState.has("ArrowUp");
+  input.moveX = (right ? 1 : 0) - (left ? 1 : 0);
+  input.moveY = (down ? 1 : 0) - (up ? 1 : 0);
 }
 
 function shoot(dt) {
